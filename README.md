@@ -148,7 +148,6 @@ Crie um arquivo `appsettings.Development.json` baseado no `appsettings.example.j
 }
 ```
 
-> ⚠️ **Nunca commite** o arquivo `appsettings.Development.json` com dados reais. Ele já está no `.gitignore`.
 
 ---
 
