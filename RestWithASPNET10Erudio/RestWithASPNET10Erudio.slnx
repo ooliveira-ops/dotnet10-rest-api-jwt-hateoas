@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
+  <Project Path="../UnitTestsInAPS_NET/RestWithASPNET10Erudio.Tests/RestWithASPNET10Erudio.Tests.csproj" Id="d9c8b7c4-5fc7-4e38-976d-8c1ed3f5c9da" />
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
+  <Project Path="RestWithASPNET10Erudio/RestWithASPNET10Erudio.csproj" />
+</Solution>

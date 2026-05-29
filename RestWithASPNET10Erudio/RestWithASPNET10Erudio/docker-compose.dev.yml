@@ -1,0 +1,22 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "SENHA_REMOVIDA"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - erudio-network
+    restart: unless-stopped
+
+networks:
+  erudio-network:
+    driver: bridge
+
+volumes:
+  sqlserver_data:

@@ -1,0 +1,89 @@
+# ==============================================
+#  .NET 10 / C# — .gitignore completo
+#  Gerado para: .NET 10, Docker, Banco de dados
+# ==============================================
+
+# ── Secrets e variáveis de ambiente ──────────
+.env
+.env.*
+!.env.example
+*.secret
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Production.json
+appsettings.Staging.json
+secrets.json
+**/Properties/launchSettings.json
+
+# ── Banco de dados ────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+*.mdf
+*.ldf
+*.ndf
+*.bak
+*.sql.bak
+data/
+pgdata/
+mysql_data/
+mongo_data/
+redis_data/
+
+# ── Docker ────────────────────────────────────
+.dockerenv
+docker-compose.override.yml
+docker-compose.local.yml
+
+# ── Build e compilação .NET ───────────────────
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+out/
+publish/
+artifacts/
+
+# ── NuGet ─────────────────────────────────────
+*.nupkg
+*.snupkg
+**/[Pp]ackages/
+!**/[Pp]ackages/build/
+nuget.config
+.nuget/
+
+# ── Visual Studio ─────────────────────────────
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+.vscode/settings.json
+.vscode/launch.json
+
+# ── Rider / JetBrains ─────────────────────────
+.idea/
+*.DotSettings.user
+
+# ── Sistema operacional ───────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
+
+# ── Testes e cobertura ────────────────────────
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+*.trx
+
+# ── Outros temporários ────────────────────────
+*.tmp
+*.temp
+*.cache
+*.pid
+*.lock
+crash.log
+npm-debug.log*
