@@ -2,7 +2,7 @@ name: Continuous Integration, Delivery and Deployment with Github Actions and .N
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
 
     
 jobs:
