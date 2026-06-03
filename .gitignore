@@ -24,7 +24,6 @@ secrets.json
 *.ndf
 *.bak
 *.sql.bak
-data/
 pgdata/
 mysql_data/
 mongo_data/
