@@ -49,7 +49,9 @@ jobs:
       working-directory: RestWithASPNET10Erudio/RestWithASPNET10Erudio
 
     - name: Test ASP.NET 10 App
-      run: dotnet build RestWithASPNET10Erudio.Tests.csproj --configuration Release
+      run: |
+        dotnet build RestWithASPNET10Erudio.Tests.csproj --configuration Release
+        dotnet test RestWithASPNET10Erudio.Tests.csproj --configuration Release --no-build --logger "console;verbosity=detailed"
       working-directory: UnitTestsInAPS_NET/RestWithASPNET10Erudio.Tests
 
     - name: Docker Compose Build
