@@ -2,7 +2,7 @@ name: Continuous Integration, Delivery and Deployment with Github Actions and .N
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
 
     
 jobs:
@@ -49,7 +49,7 @@ jobs:
       working-directory: RestWithASPNET10Erudio/RestWithASPNET10Erudio
 
     - name: Test ASP.NET 10 App
-      run: dotnet test RestWithASPNET10Erudio.Tests.csproj --configuration Release --no-build --logger "console;verbosity=detailed"
+      run: dotnet build RestWithASPNET10Erudio.Tests.csproj --configuration Release
       working-directory: UnitTestsInAPS_NET/RestWithASPNET10Erudio.Tests
 
     - name: Docker Compose Build
