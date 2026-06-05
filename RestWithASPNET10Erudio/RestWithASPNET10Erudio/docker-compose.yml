@@ -18,6 +18,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+    image: ooliveir4/rest-with-asp-net-10-erudio:latest
     container_name: rest-api-app
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
