@@ -57,3 +57,10 @@ jobs:
     - name: Docker Compose Build
       run: docker compose build
       working-directory: RestWithASPNET10Erudio/RestWithASPNET10Erudio
+
+    - name: Push Docker Hub Container Registry
+      run: |
+        docker tag ${{secrets.DOCKER_USERNAME}}/rest-with-asp-net-10-erudio:latest ${{secrets.DOCKER_USERNAME}}/rest-with-asp-net-10-erudio:${{github.run_id}}
+
+        docker push ${{secrets.DOCKER_USERNAME}}/rest-with-asp-net-10-erudio:latest
+        docker push ${{secrets.DOCKER_USERNAME}}/rest-with-asp-net-10-erudio:${{github.run_id}}
