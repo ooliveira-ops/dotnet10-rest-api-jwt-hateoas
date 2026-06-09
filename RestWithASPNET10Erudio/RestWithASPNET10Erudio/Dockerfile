@@ -19,4 +19,5 @@ RUN dotnet publish "./RestWithASPNET10Erudio.csproj" -c $BUILD_CONFIGURATION -o 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY --from=build /src/db /app/db
 ENTRYPOINT ["dotnet", "RestWithASPNET10Erudio.dll"]
