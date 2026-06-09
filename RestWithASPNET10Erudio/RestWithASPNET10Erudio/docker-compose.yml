@@ -23,7 +23,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
-      - ConnectionStrings__MySQLServerSqlConnectionStrings=Data Source=sqlserver,1433;Initial Catalog=asp_net_10_erudio;User ID=sa;Password=SENHA_REMOVIDA;Encrypt=false;TrustServerCertificate=True;
+      - ConnectionStrings__MySQLServerSqlConnectionStrings=Data Source=HOST_REMOVIDO.database.windows.net,1433;Initial Catalog=asp_net_10_erudio;User ID=USER_REMOVIDO;Password=SENHA_REMOVIDA;Encrypt=true;TrustServerCertificate=false;
     depends_on:
       - sqlserver
     ports:
