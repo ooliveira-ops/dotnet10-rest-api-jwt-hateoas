@@ -29,12 +29,6 @@ jobs:
     - name: Checkout Repository Code
       uses: actions/checkout@v4
 
-    - name: Login to Docker Hub
-      uses: docker/login-action@v4
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
-
     - name: Setup .NET 10
       uses: actions/setup-dotnet@v5
       with:
@@ -55,12 +49,33 @@ jobs:
       working-directory: UnitTestsInAPS_NET/RestWithASPNET10Erudio.Tests
 
     - name: Docker Compose Build
-      run: docker compose build
+      run: |
+        docker compose build
+        docker images
       working-directory: RestWithASPNET10Erudio/RestWithASPNET10Erudio
 
-    - name: Push Docker Hub Container Registry
-      run: |
-        docker tag ${{secrets.DOCKER_USERNAME}}/rest-with-asp-net-10-erudio:latest ${{secrets.DOCKER_USERNAME}}/rest-with-asp-net-10-erudio:${{github.run_id}}
+    - name: Azure Container Registry Login
+      uses: Azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+        username: ${{ secrets.AZ_DOCKER_USERNAME }}
+        password: ${{ secrets.AZ_DOCKER_PASSWORD }}
 
-        docker push ${{secrets.DOCKER_USERNAME}}/rest-with-asp-net-10-erudio:latest
-        docker push ${{secrets.DOCKER_USERNAME}}/rest-with-asp-net-10-erudio:${{github.run_id}}
+    - name: Login to Docker Hub
+      uses: docker/login-action@v4
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+          
+    - name: Push Docker Images to Azure Container Registry
+      run: |
+        docker tag ooliveir4/rest-with-asp-net-10-erudio:latest ${{ secrets.AZURE_CONTAINER_REGISTRY }}/rest-with-asp-net-10-erudio:latest
+        docker push ${{ secrets.AZURE_CONTAINER_REGISTRY }}/rest-with-asp-net-10-erudio:latest
+        docker tag ooliveir4/rest-with-asp-net-10-erudio:latest ${{ secrets.AZURE_CONTAINER_REGISTRY }}/rest-with-asp-net-10-erudio:${{ github.run_id }}
+        docker push ${{ secrets.AZURE_CONTAINER_REGISTRY }}/rest-with-asp-net-10-erudio:${{ github.run_id }}
+
+    - name: Push to Docker Hub to Container Registry
+      run: |
+        docker push ooliveir4/rest-with-asp-net-10-erudio:latest
+        docker tag ooliveir4/rest-with-asp-net-10-erudio:latest ooliveir4/rest-with-asp-net-10-erudio:${{ github.run_id }}
+        docker push ooliveir4/rest-with-asp-net-10-erudio:${{ github.run_id }}
