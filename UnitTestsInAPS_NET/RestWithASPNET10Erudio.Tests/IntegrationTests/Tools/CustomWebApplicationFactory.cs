@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RestWithASPNET10Erudio.Model.Context;
+using Version = System.Version;
 
 namespace RestWithASPNET10Erudio.Tests.IntegrationTests.Tools
 {
@@ -40,7 +41,7 @@ namespace RestWithASPNET10Erudio.Tests.IntegrationTests.Tools
 					services.Remove(descriptor);
 
 				services.AddDbContext<MSSQLContext>(options =>
-					options.UseMySql(_connectionString, ServerVersion.AutoDetect(_connectionString)));
+					options.UseMySql(_connectionString, new MySqlServerVersion(new Version(8, 0, 0)))); ;
 
 				// ✅ Redefine o CORS para o ambiente de teste
 				services.AddCors(options =>

@@ -13,8 +13,8 @@ namespace RestWithASPNET10Erudio.Tests.IntegrationTests.Tools
 
 		public SqlServerFixture()
 		{
-			Container = new MySqlBuilder()
-				.WithPassword("SENHA_REMOVIDA")         // a senha que a gente colocou no SQL
+			Container = new MySqlBuilder("mysql:8.0")
+				.WithPassword("SENHA_REMOVIDA")         // a senha que a gente colocou no SQL(antigo banco)
 				.Build();
 		}
 
@@ -25,7 +25,7 @@ namespace RestWithASPNET10Erudio.Tests.IntegrationTests.Tools
 			EvolveConfig.ExecuteMigrations(ConnectionString);
 		}
 
-		public async Task DisposeAsync()            //com esses 2, a gente sobe e cria o container
+		public async Task DisposeAsync()            //com esses 2: a gente sobe e cria o container
 		{
 			await Container.DisposeAsync();
 		}
