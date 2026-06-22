@@ -40,7 +40,7 @@ namespace RestWithASPNET10Erudio.Tests.IntegrationTests.Tools
 					services.Remove(descriptor);
 
 				services.AddDbContext<MSSQLContext>(options =>
-					options.UseSqlServer(_connectionString));
+					options.UseMySql(_connectionString, ServerVersion.AutoDetect(_connectionString)));
 
 				// ✅ Redefine o CORS para o ambiente de teste
 				services.AddCors(options =>
