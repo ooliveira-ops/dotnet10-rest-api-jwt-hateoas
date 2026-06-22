@@ -1,12 +1,4 @@
-INSERT [dbo].[person] ([first_name], [last_name], [address], [gender]) 
-VALUES (N'Ayrton', N'Senna', N'São Paulo - Brazil', N'Male');
-
-INSERT [dbo].[person] ([first_name], [last_name], [address], [gender]) 
-VALUES (N'Alan', N'Turing', N'London - England', N'Male');
-
-INSERT [dbo].[person] ([first_name], [last_name], [address], [gender]) 
-VALUES (N'Leonardo', N'da Vinci', N'Anchiano - Italy', N'Male');
-
-INSERT [dbo].[person] ([first_name], [last_name], [address], [gender]) 
-VALUES (N'Nelson', N'Mandela', N'Mvezo - South Africa', N'Male');
-
+INSERT INTO person (first_name, last_name, address, gender) VALUES ('Ayrton', 'Senna', 'São Paulo - Brazil', 'Male');
+INSERT INTO person (first_name, last_name, address, gender) VALUES ('Alan', 'Turing', 'London - England', 'Male');
+INSERT INTO person (first_name, last_name, address, gender) VALUES ('Leonardo', 'da Vinci', 'Anchiano - Italy', 'Male');
+INSERT INTO person (first_name, last_name, address, gender) VALUES ('Nelson', 'Mandela', 'Mvezo - South Africa', 'Male');

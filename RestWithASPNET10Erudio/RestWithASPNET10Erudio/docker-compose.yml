@@ -1,19 +1,4 @@
 services:
-  sqlserver:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver
-    environment:
-      ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "SENHA_REMOVIDA"
-      MSSQL_PID: "Developer"
-    ports:
-      - "1433:1433"
-    volumes:
-      - sqlserver_data:/var/opt/mssql
-    networks:
-      - erudio-network
-    restart: unless-stopped
-
   rest-with-asp-net-10-erudio:
     build:
       context: .
@@ -23,9 +8,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
-      - ConnectionStrings__MySQLServerSqlConnectionStrings=Data Source=HOST_REMOVIDO.database.windows.net,1433;Initial Catalog=asp_net_10_erudio;User ID=USER_REMOVIDO;Password=SENHA_REMOVIDA;Encrypt=true;TrustServerCertificate=false;
-    depends_on:
-      - sqlserver
+      - ConnectionStrings__MySQLServerSqlConnectionStrings=Server=***REMOVED_DB_HOST***;Port=3306;Database=asp_net_10_erudio;Uid=root;Pwd=SENHA_REMOVIDA;
     ports:
       - "8080:8080"
     networks:
@@ -48,5 +31,4 @@ networks:
     driver: bridge
 
 volumes:
-  sqlserver_data:
-  portainer_data:  
+  portainer_data:

@@ -79,3 +79,15 @@ jobs:
         docker push ooliveir4/rest-with-asp-net-10-erudio:latest
         docker tag ooliveir4/rest-with-asp-net-10-erudio:latest ooliveir4/rest-with-asp-net-10-erudio:${{ github.run_id }}
         docker push ooliveir4/rest-with-asp-net-10-erudio:${{ github.run_id }}
+
+    # - name: Azure Login
+    #   uses: Azure/login@v3.0.0
+    #   with:
+    #     creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+
+    # - name: Azure WebApp Container - Application Deployment
+    #   uses: Azure/webapps-deploy@v2.2.19
+    #   with:
+    #     app-name: 'rest-with-asp-net-10-erudio'
+    #     images: ${{ secrets.AZURE_CONTAINER_REGISTRY }}/rest-with-asp-net-10-erudio:${{ github.run_id }}

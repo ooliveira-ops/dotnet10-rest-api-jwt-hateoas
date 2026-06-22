@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RestWithASPNET10Erudio.Model.Context;
 
 namespace RestWithASPNET10Erudio.Configurations
@@ -7,17 +6,16 @@ namespace RestWithASPNET10Erudio.Configurations
 	public static class DatabaseConfiguration
 	{
 		public static IServiceCollection AddDatabaseConfiguration(
-			this IServiceCollection services, IConfiguration configuration)												//recebeu 2 parametros(configuration e services)
+			this IServiceCollection services, IConfiguration configuration)
 		{
-			var connectionString = configuration.GetConnectionString("MySQLServerSQLConnectionStrings");
+			var connectionString = configuration.GetConnectionString("MySQLServerSqlConnectionStrings");
 			if (string.IsNullOrEmpty(connectionString))
 			{
-				throw new ArgumentNullException("Connection string 'MSSQLServerSQLConnectionStrings");
+				throw new ArgumentNullException("Connection string 'MySQLServerSqlConnectionStrings' not found");
 			}
 
-
 			services.AddDbContext<MSSQLContext>(options =>
-				options.UseSqlServer(connectionString));
+				options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 			return services;
 		}
 	}
