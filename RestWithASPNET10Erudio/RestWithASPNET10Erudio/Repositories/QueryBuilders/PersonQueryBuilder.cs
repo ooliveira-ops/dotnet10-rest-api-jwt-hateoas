@@ -30,7 +30,7 @@
 			var query = $@"
 			 SELECT *  {whereClause} 
 			 ORDER BY p.first_name {sort} 
-			 OFFSET {offset} ROWS FETCH NEXT {size} ROWS ONLY";
+			 LIMIT {size} OFFSET {offset}";
 
 			var countQuery = $"SELECT COUNT(*)  {whereClause}";
 
