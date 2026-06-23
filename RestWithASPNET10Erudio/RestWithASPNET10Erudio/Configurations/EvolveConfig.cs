@@ -43,7 +43,9 @@ namespace RestWithASPNET10Erudio.Configurations
 			{
 				Locations = new List<string> { "db/migrations", "db/dataset" },
 				IsEraseDisabled = true,
+				MustEraseOnValidationError = false,
 			};
+			evolve.Repair();
 			evolve.Migrate();
 		}
 
