@@ -30,13 +30,15 @@ Uma API RESTful completa com autenticação JWT, HATEOAS, versionamento, upload/
 
 - **[.NET 10](https://dotnet.microsoft.com/)** — Framework principal
 - **C#** — Linguagem de programação
-- **SQL Server** — Banco de dados relacional
+- **MySQL (Google Cloud SQL)** — Banco de dados relacional em nuvem
 - **Docker & Docker Compose** — Containerização
 - **JWT (JSON Web Token)** — Autenticação e autorização
 - **Swagger / Scalar** — Documentação da API
 - **Serilog** — Logging estruturado
 - **Evolve** — Migrations de banco de dados
 - **HATEOAS** — Hypermedia como motor de estado da aplicação
+- **Pomelo.EntityFrameworkCore.MySql** — Provider EF Core para MySQL
+- **GitHub Actions** — CI/CD pipeline
 
 ---
 
@@ -53,8 +55,11 @@ Uma API RESTful completa com autenticação JWT, HATEOAS, versionamento, upload/
 - ✅ **CORS** configurável
 - ✅ Migrations automáticas com **Evolve**
 - ✅ Containerização completa com **Docker Compose**
+- ✅ Deploy em nuvem com **Google Cloud SQL**
+- ✅ Pipeline CI/CD com **GitHub Actions** (build, testes e push de imagem)
 
 ---
+
 
 ## 📁 Estrutura do Projeto
 
@@ -66,7 +71,9 @@ RestWithASPNET10Erudio/
 │   ├── V1/                  # Controllers versão 1
 │   └── V2/                  # Controllers versão 2
 ├── DATA/                    # Contexto e entidades do banco de dados
-├── db/                      # Scripts SQL e migrations
+├── db/
+│   ├── migrations/          # Scripts DDL (criação de tabelas)
+│   └── dataset/             # Scripts DML (dados iniciais)
 ├── Files/
 │   ├── Exporters/           # Exportação CSV e XLSX
 │   └── Importers/           # Importação CSV e XLSX
@@ -78,12 +85,11 @@ RestWithASPNET10Erudio/
 ├── Services/                # Serviços de negócio
 ├── UploadDir/               # Diretório de uploads
 ├── Dockerfile               # Imagem da aplicação
-├── Dockerfile.sqlserver     # Imagem customizada do SQL Server
 ├── docker-compose.yml       # Orquestração dos containers
-├── docker-compose.dev.yml   # Configuração de desenvolvimento
 ├── Program.cs               # Ponto de entrada da aplicação
-└── appsettings.json         # Configurações (usar .example para referência)
+└── appsettings.json         # Configurações da aplicação
 ```
+
 
 ---
 
@@ -92,6 +98,7 @@ RestWithASPNET10Erudio/
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [Git](https://git-scm.com/)
+- Instância MySQL acessível (local ou Google Cloud SQL)
 
 ---
 
@@ -104,8 +111,8 @@ RestWithASPNET10Erudio/
 git clone https://github.com/ooliveira-ops/Projeto-curso-Erudio-.NET.git
 cd Projeto-curso-Erudio-.NET
 
-# Copie o arquivo de exemplo e configure as variáveis
-cp appsettings.example.json appsettings.Development.json
+# Configure a connection string no docker-compose.yml
+# ConnectionStrings__MySQLServerSqlConnectionStrings=Server=<host>;Port=3306;Database=asp_net_10_erudio;Uid=<user>;Pwd=<password>;
 
 # Suba os containers
 docker compose up --build
@@ -119,6 +126,8 @@ A API estará disponível em: `http://localhost:8080`
 # Restaura as dependências
 dotnet restore
 
+# Configure a connection string no appsettings.json
+
 # Roda a aplicação
 dotnet run --project RestWithASPNET10Erudio
 ```
@@ -127,12 +136,12 @@ dotnet run --project RestWithASPNET10Erudio
 
 ## 🔐 Variáveis de Ambiente
 
-Crie um arquivo `appsettings.Development.json` baseado no `appsettings.example.json`:
+Configure a connection string no `appsettings.json` ou via variável de ambiente:
 
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Database=rest_api;User=sa;Password=SuaSenha;"
+    "MySQLServerSqlConnectionStrings": "Server=<host>;Port=3306;Database=asp_net_10_erudio;Uid=<user>;Pwd=<password>;"
   },
   "TokenConfigurations": {
     "Audience": "ExampleAudience",
@@ -141,15 +150,16 @@ Crie um arquivo `appsettings.Development.json` baseado no `appsettings.example.j
     "Minutes": 60,
     "DaysToExpiry": 7
   },
-  "EmailConfiguration": {
-    "From": "seu-email@gmail.com",
-    "SmtpServer": "smtp.gmail.com",
+  "Email": {
+    "Host": "smtp.gmail.com",
     "Port": 587,
+    "Username": "seu-email@gmail.com",
     "Password": "sua-senha-de-app"
   }
 }
 ```
 
+> ⚠️ Nunca commite credenciais reais. Use variáveis de ambiente ou secrets do GitHub Actions.
 
 ---
 
@@ -165,26 +175,28 @@ Crie um arquivo `appsettings.Development.json` baseado no `appsettings.example.j
 ### Pessoas (V1)
 | Método | Rota | Descrição |
 |--------|------|-----------|
-| GET | `/api/v1/person` | Lista todas as pessoas |
-| GET | `/api/v1/person/{id}` | Busca por ID |
-| POST | `/api/v1/person` | Cria uma pessoa |
-| PUT | `/api/v1/person` | Atualiza uma pessoa |
-| DELETE | `/api/v1/person/{id}` | Remove uma pessoa |
+| GET | `/api/person/v1/{sortDirection}/{pageSize}/{page}` | Lista paginada |
+| GET | `/api/person/v1/{id}` | Busca por ID |
+| POST | `/api/person/v1` | Cria uma pessoa |
+| PUT | `/api/person/v1` | Atualiza uma pessoa |
+| PATCH | `/api/person/v1/{id}` | Habilita/desabilita |
+| DELETE | `/api/person/v1/{id}` | Remove uma pessoa |
 
 ### Livros
 | Método | Rota | Descrição |
 |--------|------|-----------|
-| GET | `/api/v1/book` | Lista todos os livros |
-| GET | `/api/v1/book/{id}` | Busca por ID |
-| POST | `/api/v1/book` | Cria um livro |
-| PUT | `/api/v1/book` | Atualiza um livro |
-| DELETE | `/api/v1/book/{id}` | Remove um livro |
+| GET | `/api/book/v1` | Lista todos os livros |
+| GET | `/api/book/v1/{id}` | Busca por ID |
+| POST | `/api/book/v1` | Cria um livro |
+| PUT | `/api/book/v1` | Atualiza um livro |
+| DELETE | `/api/book/v1/{id}` | Remove um livro |
 
 ### Arquivos
 | Método | Rota | Descrição |
 |--------|------|-----------|
-| POST | `/api/v1/file/upload` | Upload de CSV ou XLSX |
-| GET | `/api/v1/file/download/{name}` | Download de arquivo |
+| POST | `/api/file/v1/uploadFile` | Upload de CSV ou XLSX |
+| POST | `/api/file/v1/uploadFiles` | Upload múltiplo |
+| GET | `/api/file/v1/downloadFile/{fileName}` | Download de arquivo |
 
 > 📖 Documentação completa disponível em `/swagger` ou `/scalar` após subir a aplicação.
 
