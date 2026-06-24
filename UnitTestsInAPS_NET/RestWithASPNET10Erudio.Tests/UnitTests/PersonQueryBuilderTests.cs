@@ -14,21 +14,18 @@ namespace RestWithASPNET10Erudio.Tests.UnitTests
 
 		[Fact]
 		public void BuildQueries_ShouldReturnCorrectQueries()
-		{
-			// Arrange
+		{	
 			var name = "John";
 			var sortDirection = "asc";
 			var pageSize = 10;
 			var page = 2;
 
-			// Act
-			var (query, countQuery, sort, size, offset) = _queryBuilder.BuildQueries(
+			var (query, countQuery, sort, size, offset) = _queryBuilder.BuildQueries(  
 				name, sortDirection, pageSize, page);
 
-			// Assert
 			query.Should().Contain("SELECT *  FROM person p WHERE 1 = 1  AND (p.first_name LIKE '%John%')");
 			query.Should().Contain("ORDER BY p.first_name asc");
-			query.Should().Contain("OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY");
+			query.Should().Contain("LIMIT 10 OFFSET 10");
 
 			countQuery.Should().Be("SELECT COUNT(*)  FROM person p WHERE 1 = 1  AND (p.first_name LIKE '%John%') ");
 			sort.Should().Be("asc");
@@ -38,22 +35,19 @@ namespace RestWithASPNET10Erudio.Tests.UnitTests
 
 		[Fact]
 		public void BuildQueries_ShouldHandleInvalidPageAndPageSize()
-		{
-			// Arrange
+		{   //arrange
 			var name = "";
 			var sortDirection = "desc";
 			var pageSize = 0;
 			var page = -1;
-
-			// Act
+			//act
 			var (query, countQuery, sort, size, offset) = _queryBuilder.BuildQueries(
 				name, sortDirection, pageSize, page);
-
-			// Assert
+			//assert
 			query.Should().Contain("SELECT *  FROM person p WHERE 1 = 1 ");
 			query.Should().Contain("ORDER BY p.first_name desc");
-			query.Should().Contain("OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY");
-
+			query.Should().Contain("LIMIT 1 OFFSET 0");
+			
 			countQuery.Should().Be("SELECT COUNT(*)  FROM person p WHERE 1 = 1 ");
 			sort.Should().Be("desc");
 			size.Should().Be(1);
@@ -62,23 +56,20 @@ namespace RestWithASPNET10Erudio.Tests.UnitTests
 
 		[Fact]
 		public void BuildQueries_ShouldHandleNullOrWhitespaceName()
-		{
-			// Arrange
+		{       //arrange
 			string name = null;
 			var sortDirection = "asc";
 			var pageSize = 5;
 			var page = 1;
-
-			// Act
+			//act
 			var (query, countQuery, sort, size, offset) = _queryBuilder.BuildQueries(
 				name, sortDirection, pageSize, page);
-
-			// Assert
+			//assert
 			query.Should().Contain("SELECT *  FROM person p WHERE 1 = 1 ");
 			query.Should().Contain("ORDER BY p.first_name asc");
-			query.Should().Contain("OFFSET 0 ROWS FETCH NEXT 5 ROWS ONLY");
+			query.Should().Contain("LIMIT 5 OFFSET 0");
 			query.Should().NotContain("AND (p.first_name LIKE");
-
+			
 			countQuery.Should().Be("SELECT COUNT(*)  FROM person p WHERE 1 = 1 ");
 			sort.Should().Be("asc");
 			size.Should().Be(5);
@@ -87,22 +78,19 @@ namespace RestWithASPNET10Erudio.Tests.UnitTests
 
 		[Fact]
 		public void BuildQueries_ShouldDefaultToDescForInvalidSortDirection()
-		{
-			// Arrange
+		{	//act
 			var name = "Jane";
 			var sortDirection = "invalid";
 			var pageSize = 10;
 			var page = 1;
 
-			// Act
 			var (query, countQuery, sort, size, offset) = _queryBuilder.BuildQueries(
 				name, sortDirection, pageSize, page);
-
-			// Assert
+			//assert
 			query.Should().Contain("SELECT *  FROM person p WHERE 1 = 1  AND (p.first_name LIKE '%Jane%')");
 			query.Should().Contain("ORDER BY p.first_name asc");
-			query.Should().Contain("OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY");
-
+			query.Should().Contain("LIMIT 10 OFFSET 0");
+			//assert
 			countQuery.Should().Be("SELECT COUNT(*)  FROM person p WHERE 1 = 1  AND (p.first_name LIKE '%Jane%') ");
 			sort.Should().Be("asc");
 			size.Should().Be(10);

@@ -13,19 +13,6 @@ jobs:
 
     steps:
 
-    - name: Create SQL Server Container
-      run: |
-        docker run -d --name sqlserver_teste \
-          -e "ACCEPT_EULA=Y" \
-          -e "MSSQL_SA_PASSWORD=SENHA_REMOVIDA" \
-          -p 1433:1433 \
-          mcr.microsoft.com/mssql/server:2022-latest
-
-        timeout 90s bash -c "until docker exec sqlserver_teste /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P SENHA_REMOVIDA -Q 'SELECT 1' -C; do sleep 5; done"
-
-    - name: Create SQL Server Database
-      run: docker exec sqlserver_teste /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P SENHA_REMOVIDA -Q "IF DB_ID('asp_net_10_erudio') IS NULL CREATE DATABASE asp_net_10_erudio" -C
-
     - name: Checkout Repository Code
       uses: actions/checkout@v4
 
@@ -79,3 +66,14 @@ jobs:
         docker push ooliveir4/rest-with-asp-net-10-erudio:latest
         docker tag ooliveir4/rest-with-asp-net-10-erudio:latest ooliveir4/rest-with-asp-net-10-erudio:${{ github.run_id }}
         docker push ooliveir4/rest-with-asp-net-10-erudio:${{ github.run_id }}
+
+    # - name: Azure Login
+    #   uses: Azure/login@v3.0.0
+    #   with:
+    #     creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    # - name: Azure WebApp Container - Application Deployment
+    #   uses: Azure/webapps-deploy@v2.2.19
+    #   with:
+    #     app-name: 'rest-with-asp-net-10-erudio'
+    #     images: ${{ secrets.AZURE_CONTAINER_REGISTRY }}/rest-with-asp-net-10-erudio:${{ github.run_id }}

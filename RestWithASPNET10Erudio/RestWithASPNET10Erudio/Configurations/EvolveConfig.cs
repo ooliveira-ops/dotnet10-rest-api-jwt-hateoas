@@ -1,18 +1,11 @@
 ﻿using EvolveDb;
-using Microsoft.Data.SqlClient;
-using Microsoft.Identity.Client;
-using Microsoft.VisualBasic;
+using MySqlConnector;
 using Serilog;
 
 namespace RestWithASPNET10Erudio.Configurations
 {
 	public static class EvolveConfig
 	{
-		private const bool V = true;
-
-		public static List<string> Locations { get; private set; }
-		public static bool IsEraseDisabled { get; private set; }
-
 		public static IServiceCollection AddEvolveConfiguration(
 			this IServiceCollection services,
 			IConfiguration configuration,
@@ -31,7 +24,6 @@ namespace RestWithASPNET10Erudio.Configurations
 				try
 				{
 					ExecuteMigrationsWithRetry(connectionString, maxRetries: 5);
-
 				}
 				catch (Exception ex)
 				{
@@ -42,24 +34,25 @@ namespace RestWithASPNET10Erudio.Configurations
 			return services;
 		}
 
-
 		public static void ExecuteMigrations(string connectionString)
 		{
-			using var evolveConnection = new SqlConnection(connectionString);
+			using var evolveConnection = new MySqlConnection(connectionString);
 			var evolve = new Evolve(
 				evolveConnection,
 				msg => Log.Information(msg))
 			{
 				Locations = new List<string> { "db/migrations", "db/dataset" },
 				IsEraseDisabled = true,
+				MustEraseOnValidationError = false,
 			};
+			evolve.Repair();
 			evolve.Migrate();
 		}
 
 		public static void ExecuteMigrationsWithRetry(string connectionString, int maxRetries = 5)
 		{
 			int attempt = 0;
-			int delayMs = 2000; // Começar com 2 segundos
+			int delayMs = 2000;
 
 			while (attempt < maxRetries)
 			{
@@ -71,11 +64,11 @@ namespace RestWithASPNET10Erudio.Configurations
 					Log.Information("Migrations executed successfully!");
 					return;
 				}
-				catch (SqlException ex) when (attempt < maxRetries)
+				catch (MySqlException ex) when (attempt < maxRetries)
 				{
 					Log.Warning(ex, $"Database connection failed. Retrying in {delayMs}ms... (Attempt {attempt}/{maxRetries})");
 					System.Threading.Thread.Sleep(delayMs);
-					delayMs = Math.Min(delayMs * 2, 10000); // Aumentar delay, máximo 10 segundos
+					delayMs = Math.Min(delayMs * 2, 10000);
 				}
 				catch (Exception ex)
 				{
@@ -87,4 +80,4 @@ namespace RestWithASPNET10Erudio.Configurations
 			throw new Exception($"Failed to execute migrations after {maxRetries} attempts.");
 		}
 	}
-} 
+}
