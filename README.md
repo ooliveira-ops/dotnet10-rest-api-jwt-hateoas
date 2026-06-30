@@ -205,3 +205,5 @@ Configure a connection string no `appsettings.json` ou via variável de ambiente
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+
