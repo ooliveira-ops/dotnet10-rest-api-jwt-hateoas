@@ -14,10 +14,11 @@ using RestWithASPNET10Erudio.Tests.IntegrationTests.Tools;
 
 namespace RestWithASPNET10Erudio.Tests.IntegrationTests.HATEOAS
 {
+	[Collection("Sequential")]
 	[TestCaseOrderer(
 		TestConfigs.TestCaseOrdererFullName,
 		TestConfigs.TestCaseOrdererAssembly)]
-	public class PersonControllerHATEOASTests : IClassFixture<SqlServerFixture>
+	public class PersonControllerHATEOASTests
 	{
 		private readonly HttpClient _httpClient;
 		private static PersonDTO _person = null!;

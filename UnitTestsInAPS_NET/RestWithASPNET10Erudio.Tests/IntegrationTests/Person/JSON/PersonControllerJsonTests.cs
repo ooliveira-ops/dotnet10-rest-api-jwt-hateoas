@@ -12,10 +12,11 @@ using RestWithASPNET10Erudio.Tests.IntegrationTests.Tools;
 namespace RestWithASPNET10Erudio.Tests.IntegrationTests.Person.JSON
 {
 
+	[Collection("Sequential")]
 	[TestCaseOrderer(
 		TestConfigs.TestCaseOrdererFullName,
 		TestConfigs.TestCaseOrdererAssembly)]
-	public class PersonControllerJsonTests : IClassFixture<SqlServerFixture>
+	public class PersonControllerJsonTests
 	{
 		private readonly HttpClient  _httpClient;
 		private static PersonDTO _person = null!;
