@@ -7,10 +7,11 @@ using RestWithASPNET10Erudio.Tests.IntegrationTests.Tools;
 
 namespace RestWithASPNET10Erudio.Tests.IntegrationTests.Auth
 {
+	[Collection("Sequential")]
 	[TestCaseOrderer(
 		TestConfigs.TestCaseOrdererFullName,
 		TestConfigs.TestCaseOrdererAssembly)]
-	public class AuthControllerIntegrationTests : IClassFixture<SqlServerFixture>
+	public class AuthControllerIntegrationTests
 	{
 		private readonly HttpClient _httpClient;
 		private static TokenDTO? _token;

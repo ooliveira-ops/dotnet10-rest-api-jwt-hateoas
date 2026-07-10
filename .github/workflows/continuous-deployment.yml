@@ -51,36 +51,36 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-    - name: Login to Google Cloud Platform
-      uses: 'google-github-actions/auth@v3'
-      with:
-        project_id: 'project-4f6c2526-7e00-40c2-aad'
-        workload_identity_provider: '${{ secrets.WIF_PROVIDER }}'
-        service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
+    # - name: Login to Google Cloud Platform
+    #   uses: 'google-github-actions/auth@v3'
+    #   with:
+    #     project_id: 'project-4f6c2526-7e00-40c2-aad'
+    #     workload_identity_provider: '${{ secrets.WIF_PROVIDER }}'
+    #     service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
 
-    - name: Configure Docker Authentication for Google Cloud Artifact Registry
-      run: gcloud auth configure-docker us-central1-docker.pkg.dev
+    # - name: Configure Docker Authentication for Google Cloud Artifact Registry
+    #   run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
-    - name: Push to Google Cloud Artifact Registry
-      run: |
-        docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-asp-net-10-erudio:latest ${{ secrets.REGISTRY_INFO }}/oliveira-registry/rest-with-asp-net-10-eru:latest
-        docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-asp-net-10-erudio:latest ${{ secrets.REGISTRY_INFO }}/oliveira-registry/rest-with-asp-net-10-eru:${{ github.run_id }}
-        docker push ${{ secrets.REGISTRY_INFO }}/oliveira-registry/rest-with-asp-net-10-eru:latest
-        docker push ${{ secrets.REGISTRY_INFO }}/oliveira-registry/rest-with-asp-net-10-eru:${{ github.run_id }}
+    # - name: Push to Google Cloud Artifact Registry
+    #   run: |
+    #     docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-asp-net-10-erudio:latest ${{ secrets.REGISTRY_INFO }}/oliveira-registry/rest-with-asp-net-10-eru:latest
+    #     docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-asp-net-10-erudio:latest ${{ secrets.REGISTRY_INFO }}/oliveira-registry/rest-with-asp-net-10-eru:${{ github.run_id }}
+    #     docker push ${{ secrets.REGISTRY_INFO }}/oliveira-registry/rest-with-asp-net-10-eru:latest
+    #     docker push ${{ secrets.REGISTRY_INFO }}/oliveira-registry/rest-with-asp-net-10-eru:${{ github.run_id }}
              
-    - name: Deploy to Google Cloud Run
-      run: |
-        gcloud run deploy rest-with-asp-net-10-erudio \
-          --image ${{ secrets.REGISTRY_INFO }}/oliveira-registry/rest-with-asp-net-10-eru:latest \
-          --region us-central1 \
-          --platform managed \
-          --allow-unauthenticated
+    # - name: Deploy to Google Cloud Run
+    #   run: |
+    #     gcloud run deploy rest-with-asp-net-10-erudio \
+    #       --image ${{ secrets.REGISTRY_INFO }}/oliveira-registry/rest-with-asp-net-10-eru:latest \
+    #       --region us-central1 \
+    #       --platform managed \
+    #       --allow-unauthenticated
 
-    - name: Push to Docker Hub to Container Registry
-      run: |
-        docker push ooliveir4/rest-with-asp-net-10-erudio:latest
-        docker tag ooliveir4/rest-with-asp-net-10-erudio:latest ooliveir4/rest-with-asp-net-10-erudio:${{ github.run_id }}
-        docker push ooliveir4/rest-with-asp-net-10-erudio:${{ github.run_id }}
+    # - name: Push to Docker Hub to Container Registry
+    #   run: |
+    #     docker push ooliveir4/rest-with-asp-net-10-erudio:latest
+    #     docker tag ooliveir4/rest-with-asp-net-10-erudio:latest ooliveir4/rest-with-asp-net-10-erudio:${{ github.run_id }}
+    #     docker push ooliveir4/rest-with-asp-net-10-erudio:${{ github.run_id }}
       
     # - name: Azure Login
     #   uses: Azure/login@v3.0.0

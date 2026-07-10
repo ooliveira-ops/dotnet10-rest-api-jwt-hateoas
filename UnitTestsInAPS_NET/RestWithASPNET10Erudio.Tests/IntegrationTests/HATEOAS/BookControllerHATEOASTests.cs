@@ -11,10 +11,11 @@ using RestWithASPNET10Erudio.Tests.IntegrationTests.Tools;
 
 namespace RestWithASPNET10Erudio.Tests.IntegrationTests.HATEOAS
 {
+	[Collection("Sequential")]
 	[TestCaseOrderer(
 		TestConfigs.TestCaseOrdererFullName,
 		TestConfigs.TestCaseOrdererAssembly)]
-	public class BookControllerHATEOASTests : IClassFixture<SqlServerFixture>
+	public class BookControllerHATEOASTests
 	{
 		private readonly HttpClient _httpClient;
 		private static BookDTO _book = null!;

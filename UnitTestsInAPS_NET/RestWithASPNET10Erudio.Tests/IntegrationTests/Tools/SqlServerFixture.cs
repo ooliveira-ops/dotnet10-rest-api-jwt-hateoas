@@ -22,6 +22,7 @@ namespace RestWithASPNET10Erudio.Tests.IntegrationTests.Tools
 		{
 			await Container.StartAsync();
 			ConnectionString = Container.GetConnectionString();
+			Console.WriteLine($"[DEBUG] Connection String: {ConnectionString}");
 			EvolveConfig.ExecuteMigrations(ConnectionString);
 		}
 

@@ -22,6 +22,8 @@ namespace RestWithASPNET10Erudio.Tests.IntegrationTests.Tools
 
 		protected override void ConfigureWebHost(IWebHostBuilder builder)
 		{
+			builder.UseEnvironment("Testing");
+
 			builder.ConfigureAppConfiguration((context, config) =>
 			{
 				var testConfigPath = Path.Combine(

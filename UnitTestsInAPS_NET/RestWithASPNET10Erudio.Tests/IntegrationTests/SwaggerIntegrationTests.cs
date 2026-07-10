@@ -4,8 +4,8 @@ using RestWithASPNET10Erudio.Tests.IntegrationTests.Tools;
 
 namespace RestWithASPNET10Erudio.Tests.IntegrationTests
 {
+	[Collection("Sequential")]
 	public class SwaggerIntegrationTests
-		: IClassFixture<SqlServerFixture>
 	{
 		private readonly HttpClient _httpClient;
 

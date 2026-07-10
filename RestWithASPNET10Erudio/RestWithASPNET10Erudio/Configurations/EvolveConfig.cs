@@ -11,7 +11,7 @@ namespace RestWithASPNET10Erudio.Configurations
 			IConfiguration configuration,
 			IWebHostEnvironment environment)
 		{
-			if (environment.IsDevelopment())
+			if (environment.IsDevelopment() && !environment.IsEnvironment("Testing"))
 			{
 				var connectionString = configuration.GetConnectionString(
 					"MySQLServerSqlConnectionStrings");
@@ -36,6 +36,7 @@ namespace RestWithASPNET10Erudio.Configurations
 
 		public static void ExecuteMigrations(string connectionString)
 		{
+			Console.WriteLine($"[DEBUG-EVOLVE] Usando esta connection string: {connectionString}");
 			using var evolveConnection = new MySqlConnection(connectionString);
 			var evolve = new Evolve(
 				evolveConnection,
@@ -64,16 +65,12 @@ namespace RestWithASPNET10Erudio.Configurations
 					Log.Information("Migrations executed successfully!");
 					return;
 				}
-				catch (MySqlException ex) when (attempt < maxRetries)
+				catch (Exception ex) when (attempt < maxRetries &&
+					(ex is EvolveException || ex is MySqlException))
 				{
 					Log.Warning(ex, $"Database connection failed. Retrying in {delayMs}ms... (Attempt {attempt}/{maxRetries})");
 					System.Threading.Thread.Sleep(delayMs);
 					delayMs = Math.Min(delayMs * 2, 10000);
-				}
-				catch (Exception ex)
-				{
-					Log.Error(ex, "Non-recoverable error during migrations. Aborting.");
-					throw;
 				}
 			}
 
