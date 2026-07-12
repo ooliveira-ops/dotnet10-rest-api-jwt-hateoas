@@ -112,8 +112,8 @@ RestWithASPNET10Erudio/
 git clone https://github.com/ooliveira-ops/Projeto-curso-Erudio-.NET.git
 cd Projeto-curso-Erudio-.NET
 
-# Configure a connection string no docker-compose.yml
-# ConnectionStrings__MySQLServerSqlConnectionStrings=Server=<host>;Port=3306;Database=asp_net_10_erudio;Uid=<user>;Pwd=<password>;
+# Copie o .env.example para .env e preencha com seus dados reais
+cp .env.example .env
 
 # Suba os containers
 docker compose up --build
@@ -137,7 +137,18 @@ dotnet run --project RestWithASPNET10Erudio
 
 ## 🔐 Variáveis de Ambiente
 
-Configure a connection string no `appsettings.json` ou via variável de ambiente:
+O projeto usa um arquivo `.env` (baseado no `.env.example`) para as variáveis do banco de dados, referenciadas no `docker-compose.yml`:
+
+```env
+DB_HOST=seu-host-aqui
+DB_NAME=asp_net_10_erudio
+DB_USER=seu-usuario-aqui
+DB_PASSWORD=sua-senha-aqui
+```
+
+> ⚠️ O `.env` nunca é commitado (está no `.gitignore`). Copie o `.env.example` e preencha com seus valores reais.
+
+Para rodar localmente sem Docker, configure a connection string e demais chaves diretamente no `appsettings.json`:
 
 ```json
 {
@@ -160,7 +171,9 @@ Configure a connection string no `appsettings.json` ou via variável de ambiente
 }
 ```
 
-> ⚠️ Nunca commite credenciais reais. Use variáveis de ambiente ou secrets do GitHub Actions.
+Para o pipeline de CI/CD (GitHub Actions), configure os mesmos valores como **Secrets** do repositório, em `Settings → Secrets and variables → Actions`: `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`.
+
+> ⚠️ Nunca commite credenciais reais. Use sempre variáveis de ambiente (`.env`) ou secrets do GitHub Actions.
 
 ---
 
@@ -206,5 +219,3 @@ Configure a connection string no `appsettings.json` ou via variável de ambiente
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-
