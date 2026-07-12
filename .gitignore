@@ -86,3 +86,7 @@ coverage/
 *.lock
 crash.log
 npm-debug.log*
+
+
+docker-compose.yml
+docker-compose.dev.yml
