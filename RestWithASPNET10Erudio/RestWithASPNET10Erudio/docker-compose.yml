@@ -8,7 +8,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
-      - ConnectionStrings__MySQLServerSqlConnectionStrings=Server=***REMOVED_DB_HOST***;Port=3306;Database=asp_net_10_erudio;Uid=root;Pwd=SENHA_REMOVIDA;
+      - ConnectionStrings__MySQLServerSqlConnectionStrings=Server=${DB_HOST};Port=3306;Database=${DB_NAME};Uid=${DB_USER};Pwd=${DB_PASSWORD};
     ports:
       - "8080:8080"
     networks:

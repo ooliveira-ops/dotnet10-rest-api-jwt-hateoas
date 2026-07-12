@@ -33,6 +33,8 @@ redis_data/
 .dockerenv
 docker-compose.override.yml
 docker-compose.local.yml
+docker-compose.dev.yml
+
 
 # ── Build e compilação .NET ───────────────────
 [Bb]in/
