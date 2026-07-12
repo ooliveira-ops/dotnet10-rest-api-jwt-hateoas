@@ -33,6 +33,7 @@ redis_data/
 .dockerenv
 docker-compose.override.yml
 docker-compose.local.yml
+docker-compose.dev.yml
 
 # ── Build e compilação .NET ───────────────────
 [Bb]in/
@@ -86,7 +87,3 @@ coverage/
 *.lock
 crash.log
 npm-debug.log*
-
-
-docker-compose.yml
-docker-compose.dev.yml
