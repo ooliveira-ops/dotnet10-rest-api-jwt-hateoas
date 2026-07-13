@@ -56,7 +56,7 @@ Uma API RESTful completa com autenticação JWT, HATEOAS, versionamento, upload/
 - ✅ **CORS** configurável
 - ✅ Migrations automáticas com **Evolve**
 - ✅ Containerização completa com **Docker Compose**
-- ✅ Deploy em nuvem com **Google Cloud SQL**
+- ❌ Deploy em nuvem com **Google Cloud SQL** - REMOVIDO da Plataforma
 - ✅ Pipeline CI/CD com **GitHub Actions** (build, testes e push de imagem)
 
 ---
