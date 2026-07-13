@@ -14,8 +14,11 @@ namespace RestWithASPNET10Erudio.Configurations
         {
             var tokenConfigurations = new TokenConfiguration();
 
-            configuration.GetSection("TokenConfigurations") 
+            configuration.GetSection("TokenConfigurations")
 				.Bind(tokenConfigurations);
+
+            tokenConfigurations.Secret = Environment.GetEnvironmentVariable("JWT_SECRET")
+                ?? tokenConfigurations.Secret;
 
             services.AddSingleton(tokenConfigurations);
 
