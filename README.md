@@ -144,7 +144,10 @@ DB_HOST=seu-host-aqui
 DB_NAME=asp_net_10_erudio
 DB_USER=seu-usuario-aqui
 DB_PASSWORD=sua-senha-aqui
+JWT_SECRET=gere-uma-chave-aleatoria-aqui
 ```
+
+> 🔑 `JWT_SECRET` é a chave usada para assinar os tokens de autenticação. Gere um valor aleatório próprio (ex.: `openssl rand -base64 32`) — nunca reaproveite exemplos ou valores de outros projetos.
 
 > ⚠️ O `.env` nunca é commitado (está no `.gitignore`). Copie o `.env.example` e preencha com seus valores reais.
 
