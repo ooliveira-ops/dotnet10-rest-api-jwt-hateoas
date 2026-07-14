@@ -6,7 +6,7 @@
 ![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?style=flat-square&logo=dotnet)
 ![C#](https://img.shields.io/badge/C%23-Latest-239120?style=flat-square&logo=csharp)
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat-square&logo=docker)
-![SQL Server](https://img.shields.io/badge/SQL_Server-Latest-CC2927?style=flat-square&logo=microsoftsqlserver)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat-square&logo=mysql)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
 Projeto desenvolvido durante o curso **"ASP.NET Core 2026 REST API's from 0 to Azure and GCP with .NET 10, Docker e Kubernetes"** na Udemy.
@@ -31,7 +31,7 @@ Uma API RESTful completa com autenticação JWT, HATEOAS, versionamento, upload/
 
 - **[.NET 10](https://dotnet.microsoft.com/)** — Framework principal
 - **C#** — Linguagem de programação
-- **MySQL (Google Cloud SQL)** — Banco de dados relacional em nuvem
+- **MySQL** — Banco de dados relacional (local para desenvolvimento; compatível com Google Cloud SQL)
 - **Docker & Docker Compose** — Containerização
 - **JWT (JSON Web Token)** — Autenticação e autorização
 - **Swagger / Scalar** — Documentação da API
@@ -56,7 +56,7 @@ Uma API RESTful completa com autenticação JWT, HATEOAS, versionamento, upload/
 - ✅ **CORS** configurável
 - ✅ Migrations automáticas com **Evolve**
 - ✅ Containerização completa com **Docker Compose**
-- ✅ Deploy em nuvem com **Google Cloud SQL**
+- ❌ Deploy em nuvem com **Google Cloud SQL** - REMOVIDO da Plataforma
 - ✅ Pipeline CI/CD com **GitHub Actions** (build, testes e push de imagem)
 
 ---
@@ -112,14 +112,16 @@ RestWithASPNET10Erudio/
 git clone https://github.com/ooliveira-ops/Projeto-curso-Erudio-.NET.git
 cd Projeto-curso-Erudio-.NET
 
-# Configure a connection string no docker-compose.yml
-# ConnectionStrings__MySQLServerSqlConnectionStrings=Server=<host>;Port=3306;Database=asp_net_10_erudio;Uid=<user>;Pwd=<password>;
+# Copie o .env.example para .env e preencha com seus dados reais
+cp .env.example .env
 
 # Suba os containers
 docker compose up --build
 ```
 
 A API estará disponível em: `http://localhost:8080`
+
+> 💡 **MySQL instalado localmente no Windows (fora do Docker)?** Nesse caso, o container não consegue se conectar usando `127.0.0.1` ou `localhost` — esse endereço aponta pro próprio container, não pra máquina host. Use `DB_HOST=host.docker.internal` no `.env`, que é o endereço especial do Docker para acessar serviços rodando na máquina hospedeira.
 
 ### Localmente (sem Docker)
 
@@ -137,12 +139,26 @@ dotnet run --project RestWithASPNET10Erudio
 
 ## 🔐 Variáveis de Ambiente
 
-Configure a connection string no `appsettings.json` ou via variável de ambiente:
+O projeto usa um arquivo `.env` (baseado no `.env.example`) para as variáveis do banco de dados, referenciadas no `docker-compose.yml`:
+
+```env
+DB_HOST=seu-host-aqui
+DB_NAME=seu-banco-aqui
+DB_USER=seu-usuario-aqui
+DB_PASSWORD=sua-senha-aqui
+JWT_SECRET=gere-uma-chave-aleatoria-aqui
+```
+
+> 🔑 `JWT_SECRET` é a chave usada para assinar os tokens de autenticação. Gere um valor aleatório próprio (ex.: `openssl rand -base64 32`) — nunca reaproveite exemplos ou valores de outros projetos.
+
+> ⚠️ O `.env` nunca é commitado (está no `.gitignore`). Copie o `.env.example` e preencha com seus valores reais.
+
+Para rodar localmente sem Docker, configure a connection string e demais chaves diretamente no `appsettings.json`:
 
 ```json
 {
   "ConnectionStrings": {
-    "MySQLServerSqlConnectionStrings": "Server=<host>;Port=3306;Database=asp_net_10_erudio;Uid=<user>;Pwd=<password>;"
+    "MySQLServerSqlConnectionStrings": "Server=<host>;Port=3306;Database=<database>;Uid=<user>;Pwd=<password>;"
   },
   "TokenConfigurations": {
     "Audience": "ExampleAudience",
@@ -160,7 +176,9 @@ Configure a connection string no `appsettings.json` ou via variável de ambiente
 }
 ```
 
-> ⚠️ Nunca commite credenciais reais. Use variáveis de ambiente ou secrets do GitHub Actions.
+Para o pipeline de CI/CD (GitHub Actions), configure os mesmos valores como **Secrets** do repositório, em `Settings → Secrets and variables → Actions`: `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`.
+
+> ⚠️ Nunca commite credenciais reais. Use sempre variáveis de ambiente (`.env`) ou secrets do GitHub Actions.
 
 ---
 
@@ -206,5 +224,3 @@ Configure a connection string no `appsettings.json` ou via variável de ambiente
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-
