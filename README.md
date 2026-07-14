@@ -6,7 +6,7 @@
 ![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?style=flat-square&logo=dotnet)
 ![C#](https://img.shields.io/badge/C%23-Latest-239120?style=flat-square&logo=csharp)
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat-square&logo=docker)
-![SQL Server](https://img.shields.io/badge/SQL_Server-Latest-CC2927?style=flat-square&logo=microsoftsqlserver)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat-square&logo=mysql)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
 Projeto desenvolvido durante o curso **"ASP.NET Core 2026 REST API's from 0 to Azure and GCP with .NET 10, Docker e Kubernetes"** na Udemy.
@@ -31,7 +31,7 @@ Uma API RESTful completa com autenticação JWT, HATEOAS, versionamento, upload/
 
 - **[.NET 10](https://dotnet.microsoft.com/)** — Framework principal
 - **C#** — Linguagem de programação
-- **MySQL (Google Cloud SQL)** — Banco de dados relacional em nuvem
+- **MySQL** — Banco de dados relacional (local para desenvolvimento; compatível com Google Cloud SQL)
 - **Docker & Docker Compose** — Containerização
 - **JWT (JSON Web Token)** — Autenticação e autorização
 - **Swagger / Scalar** — Documentação da API
@@ -121,6 +121,8 @@ docker compose up --build
 
 A API estará disponível em: `http://localhost:8080`
 
+> 💡 **MySQL instalado localmente no Windows (fora do Docker)?** Nesse caso, o container não consegue se conectar usando `127.0.0.1` ou `localhost` — esse endereço aponta pro próprio container, não pra máquina host. Use `DB_HOST=host.docker.internal` no `.env`, que é o endereço especial do Docker para acessar serviços rodando na máquina hospedeira.
+
 ### Localmente (sem Docker)
 
 ```bash
@@ -141,7 +143,7 @@ O projeto usa um arquivo `.env` (baseado no `.env.example`) para as variáveis d
 
 ```env
 DB_HOST=seu-host-aqui
-DB_NAME=asp_net_10_erudio
+DB_NAME=seu-banco-aqui
 DB_USER=seu-usuario-aqui
 DB_PASSWORD=sua-senha-aqui
 JWT_SECRET=gere-uma-chave-aleatoria-aqui
@@ -156,7 +158,7 @@ Para rodar localmente sem Docker, configure a connection string e demais chaves 
 ```json
 {
   "ConnectionStrings": {
-    "MySQLServerSqlConnectionStrings": "Server=<host>;Port=3306;Database=asp_net_10_erudio;Uid=<user>;Pwd=<password>;"
+    "MySQLServerSqlConnectionStrings": "Server=<host>;Port=3306;Database=<database>;Uid=<user>;Pwd=<password>;"
   },
   "TokenConfigurations": {
     "Audience": "ExampleAudience",

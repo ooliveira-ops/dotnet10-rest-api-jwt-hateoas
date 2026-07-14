@@ -9,7 +9,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__MySQLServerSqlConnectionStrings=Server=${DB_HOST};Port=3306;Database=${DB_NAME};Uid=${DB_USER};Pwd=${DB_PASSWORD};
-      - JWT_SECRET=${JWT_SECRET}
+      - TokenConfigurations__Secret=${JWT_SECRET}
     ports:
       - "8080:8080"
     networks:

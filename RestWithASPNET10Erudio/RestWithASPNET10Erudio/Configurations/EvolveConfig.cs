@@ -36,7 +36,6 @@ namespace RestWithASPNET10Erudio.Configurations
 
 		public static void ExecuteMigrations(string connectionString)
 		{
-			Console.WriteLine($"[DEBUG-EVOLVE] Usando esta connection string: {connectionString}");
 			using var evolveConnection = new MySqlConnection(connectionString);
 			var evolve = new Evolve(
 				evolveConnection,
