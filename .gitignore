@@ -14,6 +14,7 @@ appsettings.Production.json
 appsettings.Staging.json
 secrets.json
 **/Properties/launchSettings.json
+appsettings.Test.json
 
 # ── Banco de dados ────────────────────────────
 *.db

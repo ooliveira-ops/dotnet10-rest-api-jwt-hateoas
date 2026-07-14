@@ -14,7 +14,7 @@ namespace RestWithASPNET10Erudio.Tests.IntegrationTests.Tools
 		public SqlServerFixture()
 		{
 			Container = new MySqlBuilder("mysql:8.0")
-				.WithPassword("SENHA_REMOVIDA")         // a senha que a gente colocou no SQL(antigo banco)
+				.WithPassword("Test@123456")         // a senha que a gente colocou bancode teste
 				.Build();
 		}
 
