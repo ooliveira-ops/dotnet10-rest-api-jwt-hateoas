@@ -182,6 +182,18 @@ Para o pipeline de CI/CD (GitHub Actions), configure os mesmos valores como **Se
 
 ---
 
+## 🧪 Testes
+
+O projeto conta com testes unitários e de integração, usando **xUnit**, **FluentAssertions** e **Testcontainers** (para os testes de integração, que sobem um banco MySQL real em container).
+
+```bash
+dotnet test
+```
+
+- **Testes unitários**: cobrem a lógica pura (ex.: `PersonQueryBuilder`, `BookQueryBuilder`, conversores), sem dependência de banco de dados.
+- **Testes de integração**: validam o fluxo completo da API (Auth, CORS, HATEOAS, negociação de conteúdo JSON/XML) contra um banco real via Testcontainers.
+
+
 ## 📡 Endpoints
 
 ### Autenticação
@@ -204,6 +216,7 @@ Para o pipeline de CI/CD (GitHub Actions), configure os mesmos valores como **Se
 ### Livros
 | Método | Rota | Descrição |
 |--------|------|-----------|
+| GET | `/api/book/v1/{sortDirection}/{pageSize}/{page}` | Lista paginada (filtro opcional por `title`) |
 | GET | `/api/book/v1` | Lista todos os livros |
 | GET | `/api/book/v1/{id}` | Busca por ID |
 | POST | `/api/book/v1` | Cria um livro |

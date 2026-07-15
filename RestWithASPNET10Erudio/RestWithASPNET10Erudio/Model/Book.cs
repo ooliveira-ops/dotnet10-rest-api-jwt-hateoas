@@ -24,8 +24,5 @@ namespace RestWithASPNET10Erudio.Model
 		[Required]
 		[Column("launch_date")]
 		public DateTime LaunchDate { get; set; }
-
-
-
 	}
 }

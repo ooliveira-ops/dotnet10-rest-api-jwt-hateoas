@@ -48,6 +48,7 @@ builder.Services.AddEmailConfiguration(builder.Configuration);
 
 builder.Services.AddScoped<IPersonServices, PersonServicesImplV1>();
 builder.Services.AddScoped<IBookServices, BookServicesImpl>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IPersonServicesV2, PersonServicesV2>();
 
 builder.Services.AddScoped<IEmailService, EmailServiceImpl>();

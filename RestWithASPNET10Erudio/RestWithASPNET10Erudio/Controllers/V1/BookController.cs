@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestWithASPNET10Erudio.Data.DTO.V1;
+using RestWithASPNET10Erudio.Model;
 using RestWithASPNET10Erudio.Services;
 
 namespace RestWithASPNET10Erudio.Controllers.V1
@@ -48,6 +49,24 @@ namespace RestWithASPNET10Erudio.Controllers.V1
 			if (book == null) return NotFound();
 			return Ok(book);
 		}
+
+
+		// Novo endpoint: GET api/book/v1/{sortDirection}/{pageSize}/{page}?title=algo
+		// Rota tem 3 segmentos (sortDirection/pageSize/page), então não conflita
+		// com o [HttpGet] (0 segmentos) nem com o [HttpGet("{id}")] (1 segmento)
+		[HttpGet("{sortDirection}/{pageSize}/{page}")]
+		[ProducesResponseType(200, Type = typeof(PagedSearch<BookDTO>))]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(401)]
+		public IActionResult FindWithPagedSearch(
+			[FromQuery] string title, // vem via query string: ?title=Docker
+			string sortDirection,
+			int pageSize,
+			int page)
+		{
+			return Ok(_bookService.FindWithPagedSearch(title, sortDirection, pageSize, page));
+		}
+
 
 		[HttpPost]
 		[ProducesResponseType(200, Type = typeof(BookDTO))]
