@@ -11,7 +11,8 @@ namespace RestWithASPNET10Erudio.Services
 		List<BookDTO> FindAll();
 		BookDTO Update(BookDTO book);
 		void Delete(long id);
+
+		// Novo método: busca paginada por título, com ordenação e tamanho de página configuráveis
+		PagedSearch<BookDTO> FindWithPagedSearch(string title, string sortDirection, int pageSize, int page);
 	}
 }
-
-
