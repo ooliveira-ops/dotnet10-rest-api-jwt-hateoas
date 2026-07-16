@@ -88,3 +88,12 @@ coverage/
 *.lock
 crash.log
 npm-debug.log*
+
+# ── Node / React (client) ─────────────────────
+client/node_modules/
+client/build/
+client/.env
+client/.env.*
+!client/.env.example
+yarn-error.log*
+yarn-debug.log*
