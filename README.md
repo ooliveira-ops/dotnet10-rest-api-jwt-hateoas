@@ -13,6 +13,8 @@ Projeto desenvolvido durante o curso **"ASP.NET Core 2026 REST API's from 0 to A
 
 Uma API RESTful completa com autenticação JWT, HATEOAS, versionamento, upload/download de arquivos, envio de e-mails, documentação com Swagger/Scalar e suporte a Docker.
 
+Inclui também um **client em React** (pasta [`client/`](client)) que consome a API para login e CRUD de livros.
+
 ---
 
 ## 📋 Índice
@@ -22,6 +24,7 @@ Uma API RESTful completa com autenticação JWT, HATEOAS, versionamento, upload/
 - [Estrutura do Projeto](#-estrutura-do-projeto)
 - [Pré-requisitos](#-pré-requisitos)
 - [Como Rodar](#-como-rodar)
+- [Client React](#-client-react)
 - [Variáveis de Ambiente](#-variáveis-de-ambiente)
 - [Endpoints](#-endpoints)
 
@@ -40,6 +43,9 @@ Uma API RESTful completa com autenticação JWT, HATEOAS, versionamento, upload/
 - **HATEOAS** — Hypermedia como motor de estado da aplicação
 - **Pomelo.EntityFrameworkCore.MySql** — Provider EF Core para MySQL
 - **GitHub Actions** — CI/CD pipeline
+- **React** — Client web (pasta `client/`), bootstrapado com Create React App
+- **React Router DOM** — Roteamento do client
+- **Axios** — Consumo da API a partir do client
 
 ---
 
@@ -58,6 +64,7 @@ Uma API RESTful completa com autenticação JWT, HATEOAS, versionamento, upload/
 - ✅ Containerização completa com **Docker Compose**
 - ❌ Deploy em nuvem com **Google Cloud SQL** - REMOVIDO da Plataforma
 - ✅ Pipeline CI/CD com **GitHub Actions** (build, testes e push de imagem)
+- ✅ **Client React** com tela de login (JWT) e CRUD de livros (listagem paginada, criação, edição e remoção)
 
 ---
 
@@ -66,6 +73,15 @@ Uma API RESTful completa com autenticação JWT, HATEOAS, versionamento, upload/
 
 ```
 RestWithASPNET10Erudio/
+├── client/                  # Client React (Create React App) que consome a API
+│   ├── src/
+│   │   ├── pages/
+│   │   │   ├── Login/       # Tela de login (JWT)
+│   │   │   ├── Books/       # Listagem paginada de livros
+│   │   │   └── NewBook/     # Criação/edição de livro
+│   │   ├── services/        # Configuração do Axios (baseURL da API)
+│   │   └── routes.js        # Rotas do client (react-router-dom)
+│   └── package.json
 ├── Auth/                    # Autenticação JWT (contratos e implementações)
 ├── Configurations/          # Configurações modulares (DB, Auth, CORS, Swagger...)
 ├── Controllers/
@@ -134,6 +150,28 @@ dotnet restore
 # Roda a aplicação
 dotnet run --project RestWithASPNET10Erudio
 ```
+
+---
+
+## 💻 Client React
+
+O client em React (pasta [`client/`](client)) consome a API para autenticação e CRUD de livros. Para rodar:
+
+```bash
+cd client
+npm install
+npm start
+```
+
+O client sobe em `http://localhost:3000` e espera a API rodando em `http://localhost:8080` (configurado em `client/src/services/api.js`). Ajuste a `baseURL` nesse arquivo caso a API esteja em outro endereço.
+
+**Fluxo do client:**
+- **Login** (`/`) — autentica via `POST /api/auth/signin` e guarda `accessToken`/`refreshToken` no `localStorage`.
+- **Livros** (`/books`) — lista os livros de forma paginada (`GET /api/book/v1/{sortDirection}/{pageSize}/{page}`), com opções de editar, remover e carregar mais.
+- **Novo/Editar Livro** (`/book/new/:bookId`) — `bookId=0` cria um livro novo (`POST /api/book/v1`); qualquer outro valor edita um existente (`GET`/`PUT /api/book/v1`).
+- **Logout** — revoga o token via `POST /api/auth/revoke`.
+
+> ⚠️ `node_modules` e `build` do client não são versionados (ver `.gitignore`). Sempre rode `npm install` após clonar o repositório.
 
 ---
 
