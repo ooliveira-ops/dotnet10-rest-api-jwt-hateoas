@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestWithASPNET10Erudio.Data.DTO.V1;
-using RestWithASPNET10Erudio.Hypermedia.Constants;
+using Erudio.HATEOAS.Hypermedia.Abstract;
+using Erudio.HATEOAS.Hypermedia.Constants;
 
-namespace RestWithASPNET10Erudio.Hypermedia.Enricher
+namespace Erudio.HATEOAS.Hypermedia.Enricher
 {
 	public class PersonEnricher : ContentResponseEnricher<PersonDTO>
 	{

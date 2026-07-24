@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
-using RestWithASPNET10Erudio.Hypermedia;
-using RestWithASPNET10Erudio.Hypermedia.Abstract;
+using Erudio.HATEOAS.Hypermedia;
+using Erudio.HATEOAS.Hypermedia.Abstract;
 
 namespace RestWithASPNET10Erudio.Data.DTO.V1
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestWithASPNET10Erudio.Data.DTO.V1;
-using RestWithASPNET10Erudio.Hypermedia.Utils;
+using Erudio.HATEOAS.Hypermedia.Utils;
 
 namespace RestWithASPNET10Erudio.Services
 {

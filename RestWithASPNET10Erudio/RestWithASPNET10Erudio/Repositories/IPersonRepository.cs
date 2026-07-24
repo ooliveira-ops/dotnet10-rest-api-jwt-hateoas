@@ -1,4 +1,4 @@
-﻿using RestWithASPNET10Erudio.Hypermedia.Utils;
+﻿using Erudio.HATEOAS.Hypermedia.Utils;
 using RestWithASPNET10Erudio.Model;
 
 namespace RestWithASPNET10Erudio.Repositories

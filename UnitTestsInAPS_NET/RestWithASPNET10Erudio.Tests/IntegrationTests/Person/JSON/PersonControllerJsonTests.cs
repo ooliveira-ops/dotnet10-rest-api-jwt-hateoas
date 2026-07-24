@@ -6,7 +6,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using RestWithASPNET10Erudio.Data.DTO.V1;
 using RestWithASPNET10Erudio.DATA.DTO.V1;
-using RestWithASPNET10Erudio.Hypermedia.Utils;
+using Erudio.HATEOAS.Hypermedia.Utils;
 using RestWithASPNET10Erudio.Tests.IntegrationTests.Tools;
 
 namespace RestWithASPNET10Erudio.Tests.IntegrationTests.Person.JSON

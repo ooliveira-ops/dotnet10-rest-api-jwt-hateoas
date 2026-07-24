@@ -12,7 +12,7 @@ using RestWithASPNET10Erudio.Files.Importers.Impl;
 using RestWithASPNET10Erudio.FIles.Exporters.Factory;
 using RestWithASPNET10Erudio.FIles.Exporters.Impl;
 using RestWithASPNET10Erudio.FIles.Importers.Factory;
-using RestWithASPNET10Erudio.Hypermedia.Filters;
+using Erudio.HATEOAS.Hypermedia.Filters;
 using RestWithASPNET10Erudio.Mail;
 using RestWithASPNET10Erudio.Repositories;
 using RestWithASPNET10Erudio.Repositories.Impl;         // PersonRepository, BookRepository, GenericRepository

@@ -1,5 +1,5 @@
-﻿using RestWithASPNET10Erudio.Hypermedia.Enricher;
-using RestWithASPNET10Erudio.Hypermedia.Filters;
+﻿using Erudio.HATEOAS.Hypermedia.Enricher;
+using Erudio.HATEOAS.Hypermedia.Filters;
 
 namespace RestWithASPNET10Erudio.Configurations
 {

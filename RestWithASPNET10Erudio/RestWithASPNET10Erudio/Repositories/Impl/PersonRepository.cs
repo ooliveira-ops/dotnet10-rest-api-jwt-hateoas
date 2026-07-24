@@ -1,4 +1,4 @@
-﻿using RestWithASPNET10Erudio.Hypermedia.Utils;
+﻿using Erudio.HATEOAS.Hypermedia.Utils;
 using RestWithASPNET10Erudio.Model;
 using RestWithASPNET10Erudio.Model.Context;
 using RestWithASPNET10Erudio.Repositories.QueryBuilders;

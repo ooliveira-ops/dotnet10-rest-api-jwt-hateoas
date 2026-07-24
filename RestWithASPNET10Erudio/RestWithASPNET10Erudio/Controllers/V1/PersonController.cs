@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.TagHelpers;
 using RestWithASPNET10Erudio.Data.DTO.V1;
 using RestWithASPNET10Erudio.DATA.DTO.V1;
 using RestWithASPNET10Erudio.FIles.Exporters.Factory;
-using RestWithASPNET10Erudio.Hypermedia.Utils;
+using Erudio.HATEOAS.Hypermedia.Utils;
 using RestWithASPNET10Erudio.Services;
 using RestWithASPNET10Erudio.Services.Impl;
 

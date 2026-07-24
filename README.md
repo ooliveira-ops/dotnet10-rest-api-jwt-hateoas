@@ -40,12 +40,18 @@ Inclui também um **client em React** (pasta [`client/`](client)) que consome a 
 - **Swagger / Scalar** — Documentação da API
 - **Serilog** — Logging estruturado
 - **Evolve** — Migrations de banco de dados
-- **HATEOAS** — Hypermedia como motor de estado da aplicação
+- **HATEOAS** — Hypermedia como motor de estado da aplicação, consumido via pacote NuGet [`Oliveira.HATEOAS`](https://github.com/ooliveira-ops/Oliveira.HATEOAS)
 - **Pomelo.EntityFrameworkCore.MySql** — Provider EF Core para MySQL
 - **GitHub Actions** — CI/CD pipeline
 - **React** — Client web (pasta `client/`), bootstrapado com Create React App
 - **React Router DOM** — Roteamento do client
 - **Axios** — Consumo da API a partir do client
+
+> ℹ️ **Sobre o HATEOAS:** as classes genéricas de hypermedia (enrichers base, filtros, links e constantes) foram extraídas deste projeto para um pacote NuGet próprio, o **[`Oliveira.HATEOAS`](https://github.com/ooliveira-ops/Oliveira.HATEOAS)** ([NuGet](https://www.nuget.org/packages/Oliveira.HATEOAS)). O projeto agora apenas consome esse pacote via `<PackageReference>` e mantém localmente somente os enrichers específicos de domínio (`BookEnricher`, `PersonEnricher`, em `Hypermedia/Enricher/`), que usam os namespaces `Erudio.HATEOAS.Hypermedia.*`. Para instalar o pacote:
+>
+> ```bash
+> dotnet add package Oliveira.HATEOAS --version 10.0.301.9
+> ```
 
 ---
 
@@ -94,7 +100,8 @@ RestWithASPNET10Erudio/
 ├── Files/
 │   ├── Exporters/           # Exportação CSV e XLSX
 │   └── Importers/           # Importação CSV e XLSX
-├── Hypermedia/              # Implementação HATEOAS
+├── Hypermedia/
+│   └── Enricher/            # Enrichers de domínio (Book, Person) — usam o pacote Oliveira.HATEOAS
 ├── JsonSerializers/         # Serializadores customizados
 ├── Mail/                    # Serviço de envio de e-mail
 ├── Model/                   # Models e DTOs
