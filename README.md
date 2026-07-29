@@ -1,4 +1,4 @@
-# 🚀 REST API with ASP.NET Core 10
+#  REST API with ASP.NET Core 10
 
 [![Continuous Integration, Delivery and Deployment with Github Actions and .NET 10](https://github.com/ooliveira-ops/Projeto-curso-Erudio-.NET/actions/workflows/continuous-deployment.yml/badge.svg)](https://github.com/ooliveira-ops/Projeto-curso-Erudio-.NET/actions/workflows/continuous-deployment.yml)
 [![Docker Hub Repo](https://img.shields.io/docker/pulls/ooliveir4/rest-with-asp-net-10-erudio.svg)](https://hub.docker.com/repository/docker/ooliveir4/rest-with-asp-net-10-erudio)
