@@ -97,3 +97,10 @@ client/.env.*
 !client/.env.example
 yarn-error.log*
 yarn-debug.log*
+
+# --- Uploads em runtime (nao versionar arquivos enviados) ---
+# Arquivos enviados pela API acabam neste diretorio; manter apenas as
+# fixtures do curso e ignorar o resto evita subir dados pessoais.
+RestWithASPNET10Erudio/RestWithASPNET10Erudio/UploadDir/*
+!RestWithASPNET10Erudio/RestWithASPNET10Erudio/UploadDir/*.txt
+!RestWithASPNET10Erudio/RestWithASPNET10Erudio/UploadDir/Guia Essencial de Git.pdf
