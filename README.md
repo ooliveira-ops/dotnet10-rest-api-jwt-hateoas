@@ -1,6 +1,6 @@
 #  REST API with ASP.NET Core 10
 
-[![Continuous Integration, Delivery and Deployment with Github Actions and .NET 10](https://github.com/ooliveira-ops/Projeto-curso-Erudio-.NET/actions/workflows/continuous-deployment.yml/badge.svg)](https://github.com/ooliveira-ops/Projeto-curso-Erudio-.NET/actions/workflows/continuous-deployment.yml)
+[![Continuous Integration, Delivery and Deployment with Github Actions and .NET 10](https://github.com/ooliveira-ops/dotnet10-rest-api-jwt-hateoas/actions/workflows/continuous-deployment.yml/badge.svg)](https://github.com/ooliveira-ops/dotnet10-rest-api-jwt-hateoas/actions/workflows/continuous-deployment.yml)
 [![Docker Hub Repo](https://img.shields.io/docker/pulls/ooliveir4/rest-with-asp-net-10-erudio.svg)](https://hub.docker.com/repository/docker/ooliveir4/rest-with-asp-net-10-erudio)
 
 ![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?style=flat-square&logo=dotnet)
@@ -132,8 +132,8 @@ RestWithASPNET10Erudio/
 
 ```bash
 # Clone o repositório
-git clone https://github.com/ooliveira-ops/Projeto-curso-Erudio-.NET.git
-cd Projeto-curso-Erudio-.NET
+git clone https://github.com/ooliveira-ops/dotnet10-rest-api-jwt-hateoas.git
+cd dotnet10-rest-api-jwt-hateoas
 
 # Copie o .env.example para .env e preencha com seus dados reais
 cp .env.example .env
